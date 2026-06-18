@@ -1,0 +1,13 @@
+idvm -> instrukcioj de virtuala maŝino
+idvm-dosieroj estas uzataj por reprezenti bajtkodon kiel instrukciojn
+
+bdvm -> bajtkodo de virtuala maŝino
+bdvm-dosieroj (.bdvm, .bvm) estas uzataj por instrukcioj de virtuala maŝino en formo de bajtkodo
+
+node idvm-al-bdvm.js
+por kompili dosiero al bajtkodo
+
+node lanĉi.js
+por lanĉi bajtkodo dosiero
+
+Normoj en la dosiero "normoj"
