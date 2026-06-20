@@ -40,7 +40,7 @@ fs.readFile(dosieroj[0], (err, data) => {
 
       if (indekso != -1) {
         parametroj.push(tabelo[1].slice(0, indekso));
-        tabelo[1] = tabelo[1].slice(indekso);
+        tabelo[1] = tabelo[1].slice(indekso + 1);
       } else {
         parametroj.push(tabelo[1].slice(0));
         break;
