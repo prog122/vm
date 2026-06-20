@@ -1,6 +1,10 @@
 # Ŝanĝprotokolo
 Ĉiuj publikaj ŝanĝoj estos dokumentitaj en ĉi tiu dosiero.
 
+## [0.1.3]
+### Aldonita
+- Aldonitaj pli da komentoj en la testoj
+
 ## [0.1.2]
 ### Riparita
 - Korektita eraro de senfina ciklo
