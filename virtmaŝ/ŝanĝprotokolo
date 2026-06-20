@@ -1,6 +1,13 @@
 # Ŝanĝprotokolo
 Ĉiuj publikaj ŝanĝoj estos dokumentitaj en ĉi tiu dosiero.
 
+## [0.2.0]
+### Riparita
+- Korektita nekorekta traktado de spacoj por parametroj
+- Korektita la linifina formato de kelkaj dosieroj en la deponejo (CRLF → LF)
+- Korektita la konduto de la tradukilo al bajtkodo ĉe malplenaj linioj de la programo
+- Korektita formato BDVM (ŝanĝita parametra apartigilo)
+
 ## [0.1.3]
 ### Aldonita
 - Aldonitaj pli da komentoj en la testoj

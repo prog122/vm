@@ -33,18 +33,22 @@ const kompiliDosiero = (dosiero) => {
     let bufroGrandeco = 0;
 
     data.trim().split("\n").map(ĉeno => {
+      ĉeno = ĉeno.trim();
+
+      if (ĉeno.length == 0) {
+        return;
+      }
+
       let indeksoDeSpaco = ĉeno.indexOf(" ");
       let instrukcio = indeksoDeSpaco == -1 ? ĉeno : ĉeno.slice(0, indeksoDeSpaco);
-      let parametroj = indeksoDeSpaco == -1 ? [] : ĉeno.slice(indeksoDeSpaco + 1).split(/[ ]+/).map(pĈeno => {
-        return pĈeno.trim();
-      });
+      let parametroj = indeksoDeSpaco == -1 ? [] : kerno.parsadoDeLaParametrojDeKomando(instrukcio, ĉeno.slice(indeksoDeSpaco + 1).trim());
 
-      const parametrojBufro = Buffer.from(parametroj.join(" "));
+      const parametrojBufro = Buffer.from(parametroj.join(String.fromCharCode(kerno.parametrojApartigilo)));
       eligo.push([Buffer.from([kerno.operaciajKodoAlBajtkodo(instrukcio)]), parametrojBufro]);
       bufroGrandeco += 1 + parametrojBufro.length;
     });
 
-    bufroGrandeco += eligo.length - 1; // 
+    bufroGrandeco += eligo.length - 1;
 
     const bufro = Buffer.alloc(bufroGrandeco);
 
@@ -53,12 +57,13 @@ const kompiliDosiero = (dosiero) => {
       bufro.writeUInt8(tabelo[0][0], indekso);
 
       for( let i=0;i<tabelo[1].length;i++) {
-        bufro.writeUInt8(tabelo[1][i], indekso + 1);
+        bufro.writeUInt8(tabelo[1][i], indekso + 1 + i);
       }
 
       if (tabeloIndekso != eligo.length - 1) {
         bufro.writeUInt8(0, indekso + tabelo[1].length + 2);
       }
+
 
       indekso += 1 + tabelo[1].length + 1;
     })

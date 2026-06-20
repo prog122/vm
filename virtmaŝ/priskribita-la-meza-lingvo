@@ -1,0 +1,5 @@
+La dosiero .idvm enhavas komandojn kaj povas enhavi malplenajn liniojn, malplenaj linioj estas ignorataj.
+Ne-malplenaj linioj transformiĝas en komandojn kun parametroj, troaj spacoj ĉirkaŭ la komando kaj la parametroj estas ignorataj
+
+Realigitaj komandoj:
+"eligi" - eligi tekston kaj redoni ĝian valoron.  La tuta teksto post la komando ĝis la fino de la linio estas elmontrata, krom la spacoj kiuj ĝin ĉirkaŭas.

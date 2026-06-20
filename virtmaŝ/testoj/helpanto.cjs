@@ -16,11 +16,23 @@ const kunDosieroEligon = (dosiero, funkcio) => {
 const asertiLaEligonDeLaBajtkodo = (dosierNomo, eligo) => {
   kunDosieroEligon(dosierNomo, (ĉeno) => {
     if (ĉeno != eligo) {
-      process.stdout.write("---\n")
+      process.stdout.write("------\n")
       process.stdout.write(ĉeno);
       process.stdout.write("\n---\n")
       process.stdout.write(eligo)
+      process.stdout.write("\n------\n")
+
+      for (let i = 0;i < ĉeno.length;i++ ) {
+        process.stdout.write("\\" + ĉeno.charCodeAt(i));
+      }
+
       process.stdout.write("\n---\n")
+
+      for (let i = 0;i < eligo.length;i++ ) {
+        process.stdout.write("\\" + eligo[i]);
+      }
+
+      process.stdout.write("\n------\n")
     }
 
     assert.ok(ĉeno == eligo);
