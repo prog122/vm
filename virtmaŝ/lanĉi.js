@@ -60,8 +60,5 @@ fs.readFile(dosieroj[0], (eraro, datumoj) => {
     }
   });
 
-  // Ni plenumas la operaciojn de la programo
-  programoDatumoj.map(datumo => {
-    kerno.operaciajKodoj[datumo[0]][1].apply(null, datumo.slice(1));
-  });
+  kerno.plenumiOperaciojn(programoDatumoj);
 });

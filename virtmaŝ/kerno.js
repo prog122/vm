@@ -38,4 +38,20 @@ const parsadoDeLaParametrojDeKomando = (instrukcio, ĉeno) => {
   }
 };
 
-export { operaciajKodoj, operaciajKodoAlBajtkodo, parsadoDeLaParametrojDeKomando, parametrojApartigilo };
+// [[0, "teksto"]]
+const plenumiOperaciojn = (programoDatumoj) => {
+  // Ni plenumas la operaciojn de la programo
+  programoDatumoj.map(datumo => {
+    operaciajKodoj[datumo[0]][1].apply(null, datumo.slice(1));
+  });
+};
+
+// [["eligi", "teksto"]]
+const plenumiOperaciojn2 = (programoDatumoj) => {
+  // Ni plenumas la operaciojn de la programo
+  programoDatumoj.map(datumo => {
+    operaciajKodoj[operaciajKodoAlBajtkodo(datumo[0]) - 1][1].apply(null, datumo.slice(1));
+  });
+};
+
+export { operaciajKodoj, operaciajKodoAlBajtkodo, parsadoDeLaParametrojDeKomando, parametrojApartigilo, plenumiOperaciojn, plenumiOperaciojn2 };
