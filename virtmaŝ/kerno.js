@@ -17,6 +17,8 @@ const operaciajKodoAlBajtkodo = (ĉeno) => {
       return i+1;
     }
   }
+
+  throw new Error("Nekonata operacio " + ĉeno);
 }
 
 const specifajParsajFunkcioj = {
@@ -47,10 +49,17 @@ const plenumiOperaciojn = (programoDatumoj) => {
 };
 
 // [["eligi", "teksto"]]
-const plenumiOperaciojn2 = (programoDatumoj) => {
+const plenumiOperaciojn2 = (programoDatumoj, npilTabelo = {}) => {
+  const interŝanĝita = Object.fromEntries(
+    Object.entries(npilTabelo).map(([ŝlosilo, valoro]) => [valoro, ŝlosilo])
+  );
   // Ni plenumas la operaciojn de la programo
   programoDatumoj.map(datumo => {
-    operaciajKodoj[operaciajKodoAlBajtkodo(datumo[0]) - 1][1].apply(null, datumo.slice(1));
+    if (!interŝanĝita[datumo[0]]) {
+      operaciajKodoj[operaciajKodoAlBajtkodo(datumo[0]) - 1][1].apply(null, datumo.slice(1));
+    } else {
+      operaciajKodoj[operaciajKodoAlBajtkodo(interŝanĝita[datumo[0]]) - 1][1].apply(null, datumo.slice(1));
+    }
   });
 };
 
