@@ -1,6 +1,10 @@
 # Ŝanĝprotokolo
 Ĉiuj publikaj ŝanĝoj estos dokumentitaj en ĉi tiu dosiero.
 
+## [0.2.1]
+### Aldonita
+- Aldonita estas malplena komando por redono
+
 ## [0.2.0]
 ### Riparita
 - Korektita nekorekta traktado de spacoj por parametroj

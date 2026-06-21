@@ -3,3 +3,4 @@ Ne-malplenaj linioj transformiĝas en komandojn kun parametroj, troaj spacoj ĉi
 
 Realigitaj komandoj:
 "eligi" - eligi tekston kaj redoni ĝian valoron.  La tuta teksto post la komando ĝis la fino de la linio estas elmontrata, krom la spacoj kiuj ĝin ĉirkaŭas.
+"revena" - redoni valorojn el strukturo de valoroj (pluraj valoroj).

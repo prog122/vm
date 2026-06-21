@@ -1,6 +1,13 @@
+const logikoDePlurajValoroj = {
+  valorojPorRedoni: {},
+};
+
 const operaciajKodoj = [
-  /* 0 1 */ ["eligi", (teksto) => {
+  /* indekso, bajtkodo
+  /* 0        1 */ ["eligi", (teksto) => {
     process.stdout.write(teksto.toString());
+  }],
+  /* 1        2 */ ['revena', () => {
   }]
 ];
 

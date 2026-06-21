@@ -23,16 +23,16 @@ if (dosieroj.length == 0) {
 }
 
 const kompiliDosiero = (dosiero) => {
-  fs.readFile(dosiero, "utf8", (err, data) => {
-    if (err) {
-      console.error("Eraro ĉe legado de dosiero:", err);
+  fs.readFile(dosiero, "utf8", (eraro, datumoj) => {
+    if (eraro) {
+      console.error("Eraro ĉe legado de dosiero:", eraro);
       return;
     }
 
     let eligo = [];
     let bufroGrandeco = 0;
 
-    data.trim().split("\n").map(ĉeno => {
+    datumoj.trim().split("\n").map(ĉeno => {
       ĉeno = ĉeno.trim();
 
       if (ĉeno.length == 0) {
@@ -42,6 +42,10 @@ const kompiliDosiero = (dosiero) => {
       let indeksoDeSpaco = ĉeno.indexOf(" ");
       let instrukcio = indeksoDeSpaco == -1 ? ĉeno : ĉeno.slice(0, indeksoDeSpaco);
       let parametroj = indeksoDeSpaco == -1 ? [] : kerno.parsadoDeLaParametrojDeKomando(instrukcio, ĉeno.slice(indeksoDeSpaco + 1).trim());
+
+      if (!kerno.operaciajKodoAlBajtkodo(instrukcio)) {
+        throw 'Nekonata instrukcio "' + instrukcio + '"';
+      }
 
       const parametrojBufro = Buffer.from(parametroj.join(String.fromCharCode(kerno.parametrojApartigilo)));
       eligo.push([Buffer.from([kerno.operaciajKodoAlBajtkodo(instrukcio)]), parametrojBufro]);
@@ -66,7 +70,7 @@ const kompiliDosiero = (dosiero) => {
 
 
       indekso += 1 + tabelo[1].length + 1;
-    })
+    });
 
     if (eligi) {
       process.stdout.write(bufro);
@@ -79,11 +83,11 @@ const kompiliDosiero = (dosiero) => {
       }
 
       const novaDosiero = parsita.dir + path.sep + parsita.name + ".bdvm";
-      process.stdout.write('Konservas ' + novaDosiero);
+      process.stdout.write('Ni konservas ' + novaDosiero);
 
-      fs.writeFile(novaDosiero, bufro, (err) => {
-        if (err) {
-          console.error("Eraro:", err);
+      fs.writeFile(novaDosiero, bufro, (eraro) => {
+        if (eraro) {
+          console.error("Eraro:", eraro);
           return;
         }
       });

@@ -8,10 +8,10 @@ if (dosieroj.length == 0) {
   process.exit();
 }
 
-fs.readFile(dosieroj[0], (err, data) => {
-  if (err) throw err;
+fs.readFile(dosieroj[0], (eraro, datumoj) => {
+  if (eraro) throw eraro;
 
-  let bufro = data;
+  let bufro = datumoj;
   const operacioj = [];
 
   const legiLaSekvanOperacion = () => {
