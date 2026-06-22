@@ -2,8 +2,8 @@ const assert = require('assert');
 const { exec } = require("child_process");
 const path = require('path');
 
-const kunDosieroEligon = (dosiero, funkcio) => {
-  exec("node idvm-al-bdvm.js -e " + dosiero, (error, stdout, stderr) => {
+const kunDosieroEligon = (dosiero, funkcio, parametroj) => {
+  exec("node idvm-al-bdvm.js -e " + dosiero + parametroj, (error, stdout, stderr) => {
     if (error) {
       console.error(`Eraro: ${error.message}`);
       return;
@@ -13,7 +13,7 @@ const kunDosieroEligon = (dosiero, funkcio) => {
   });
 }
 
-const asertiLaEligonDeLaBajtkodo = (dosierNomo, eligo) => {
+const asertiLaEligonDeLaBajtkodo = (dosierNomo, eligo, parametroj = "") => {
   kunDosieroEligon(dosierNomo, (ĉeno) => {
     if (ĉeno != eligo) {
       process.stdout.write("------\n")
@@ -36,11 +36,11 @@ const asertiLaEligonDeLaBajtkodo = (dosierNomo, eligo) => {
     }
 
     assert.ok(ĉeno == eligo);
-  })
+  }, parametroj)
 };
 
-const kunLaEligoDeLaProgramo = (dosiero, funkcio) => {
-  exec("node idvm-al-bdvm.js " + dosiero, (error, stdout, stderr) => {
+const kunLaEligoDeLaProgramo = (dosiero, funkcio, parametroj = "") => {
+  exec("node idvm-al-bdvm.js " + dosiero + parametroj, (error, stdout, stderr) => {
     if (error) {
       console.error(`Eraro: ${error.message}`);
       return;
@@ -61,7 +61,7 @@ const kunLaEligoDeLaProgramo = (dosiero, funkcio) => {
 }
 
 
-const asertiLaEligonDeLaProgramo = (dosierNomo, eligo) => {
+const asertiLaEligonDeLaProgramo = (dosierNomo, eligo, parametroj = "") => {
   kunLaEligoDeLaProgramo(dosierNomo, (ĉeno) => {
     if (ĉeno != eligo) {
       process.stdout.write("---\n")
@@ -72,7 +72,7 @@ const asertiLaEligonDeLaProgramo = (dosierNomo, eligo) => {
     }
 
     assert.ok(ĉeno == eligo);
-  })
+  }, parametroj)
 }
 
 const aserti = assert.ok;

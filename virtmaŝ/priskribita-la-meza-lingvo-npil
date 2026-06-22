@@ -1,0 +1,9 @@
+La dosiero .idvm enhavas komandojn kaj povas enhavi malplenajn liniojn, malplenaj linioj estas ignorataj.
+Ne-malplenaj linioj transformiĝas en komandojn kun parametroj, troaj spacoj ĉirkaŭ la komando kaj la parametroj estas ignorataj
+
+Por uzi ĉi tiun dokumentadon necesas uzi la tabelon NPIL, ekzemple
+node idvm-al-bdvm.js -npil alia-Esperanto.npil <vojo al dosiero>
+
+Realigitaj komandoj:
+"montri" - eligi tekston kaj redoni ĝian valoron.  La tuta teksto post la komando ĝis la fino de la linio estas elmontrata, krom la spacoj kiuj ĝin ĉirkaŭas.
+"revena" - redoni valorojn el strukturo de valoroj (pluraj valoroj).

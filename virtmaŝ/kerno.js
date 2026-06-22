@@ -1,3 +1,5 @@
+import fs from 'fs';
+
 const logikoDePlurajValoroj = {
   valorojPorRedoni: {},
 };
@@ -11,8 +13,12 @@ const operaciajKodoj = [
   }]
 ];
 
-const operaciajKodoAlBajtkodo = (ĉeno) => {
+const operaciajKodoAlBajtkodo = (ĉeno, npilTabelo = {}) => {
   for ( let i=0;i<operaciajKodoj.length;i++ ) {
+    if (npilTabelo[ĉeno]) {
+      ĉeno = npilTabelo[ĉeno];
+    }
+
     if (operaciajKodoj[i][0] == ĉeno) {
       return i+1;
     }
@@ -63,4 +69,23 @@ const plenumiOperaciojn2 = (programoDatumoj, npilTabelo = {}) => {
   });
 };
 
-export { operaciajKodoj, operaciajKodoAlBajtkodo, parsadoDeLaParametrojDeKomando, parametrojApartigilo, plenumiOperaciojn, plenumiOperaciojn2 };
+const legiLaTabelonNPIL = (dosiero) => {
+  let tabelo = {};
+
+  try {
+    let datumoj = fs.readFileSync(dosiero, "utf8").trim();
+    datumoj.split("\n").map(linio => {
+      let [valoro, ŝlosilo] = linio.trim().split(" ");
+      tabelo[ŝlosilo] = valoro;
+    });
+  } catch(eraro) {
+    if (eraro) {
+      console.error("Eraro ĉe legado de dosiero:", eraro);
+      return null;
+    }
+  }
+
+  return tabelo;
+};
+
+export { operaciajKodoj, operaciajKodoAlBajtkodo, parsadoDeLaParametrojDeKomando, parametrojApartigilo, plenumiOperaciojn, plenumiOperaciojn2, legiLaTabelonNPIL };

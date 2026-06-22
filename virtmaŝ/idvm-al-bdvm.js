@@ -5,12 +5,19 @@ const path = require('path');
 const argumentoj = process.argv.slice(2);
 const dosieroj = [];
 
-let eligi = false;
+let eligi = false, npil = null, npilIndekso = -1
+
+for( let i=0;i < argumentoj.length;i++ ) {
+  if (argumentoj[i] == '-npil') {
+    npil = argumentoj[i + 1];
+    npilIndekso = i;
+  }
+}
 
 for( let i=0;i < argumentoj.length;i++ ) {
   if (argumentoj[i] == '-e') {
     eligi = true;
-  } else {
+  } else if (npilIndekso == -1 || i != npilIndekso && i != npilIndekso + 1) {
     dosieroj.push(argumentoj[i]);
   }
 }
@@ -19,6 +26,7 @@ if (dosieroj.length == 0) {
   process.stdout.write("Uzado: node idvm-al-bdvm.js <vojo al dosiero>")
   process.stdout.write("\npor kompili dosieron kaj konservi ĝin kun nova finaĵo bdvm")
   process.stdout.write("\n\nnode idvm-al-bdvm.js -e <vojo al dosiero>\npor eligi bajtkodon")
+  process.stdout.write("\n\nnode idvm-al-bdvm.js -npil <vojo al NPIL dosiero> <vojo al dosiero>\npor eligi tradukita instrukcioj (NPIL)")
   process.exit();
 }
 
@@ -31,6 +39,7 @@ const kompiliDosiero = (dosiero) => {
 
     let eligo = [];
     let bufroGrandeco = 0;
+    const npilTabelo = npil ? kerno.legiLaTabelonNPIL(npil) : {};
 
     datumoj.trim().split("\n").map(ĉeno => {
       ĉeno = ĉeno.trim();
@@ -43,12 +52,12 @@ const kompiliDosiero = (dosiero) => {
       let instrukcio = indeksoDeSpaco == -1 ? ĉeno : ĉeno.slice(0, indeksoDeSpaco);
       let parametroj = indeksoDeSpaco == -1 ? [] : kerno.parsadoDeLaParametrojDeKomando(instrukcio, ĉeno.slice(indeksoDeSpaco + 1).trim());
 
-      if (!kerno.operaciajKodoAlBajtkodo(instrukcio)) {
+      if (!kerno.operaciajKodoAlBajtkodo(instrukcio, npilTabelo)) {
         throw 'Nekonata instrukcio "' + instrukcio + '"';
       }
 
       const parametrojBufro = Buffer.from(parametroj.join(String.fromCharCode(kerno.parametrojApartigilo)));
-      eligo.push([Buffer.from([kerno.operaciajKodoAlBajtkodo(instrukcio)]), parametrojBufro]);
+      eligo.push([Buffer.from([kerno.operaciajKodoAlBajtkodo(instrukcio, npilTabelo)]), parametrojBufro]);
       bufroGrandeco += 1 + parametrojBufro.length;
     });
 
