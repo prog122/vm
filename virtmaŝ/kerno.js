@@ -4,12 +4,57 @@ const logikoDePlurajValoroj = {
   valorojPorRedoni: {},
 };
 
+const parametrojApartigilo = 0x1F;
+const parametrojApartigilo2 = {
+  numero: 124,
+  ĉeno: '|'
+};
+
+const tipoj = [
+  'bulea',
+  'entjero',
+  'glitkoma-nombro',
+  'ĉeno'
+];
+const tipojInicializiloj = {
+  'bulea': (valoro) => {
+    throw new Error('...');
+  },
+  'entjero': (valoro) => {
+    throw new Error('...');
+  },
+  'glitkoma-nombro': (valoro) => {
+    throw new Error('...');
+  },
+  'ĉeno': (valoro) => {
+    return valoro.toString();
+  }
+};
+
 const operaciajKodoj = [
   /* indekso, bajtkodo
-  /* 0        1 */ ["eligi", (teksto) => {
+  /* 0        1 */ ["eligi", (funkciaObjekto, teksto) => {
     process.stdout.write(teksto.toString());
   }],
-  /* 1        2 */ ['revena', () => {
+  /* 1        2 */ ['revena', (funkciaObjekto) => {
+    return funkciaObjekto;
+  }],
+  /* 2        3 */ ['difini-konstantojn', (funkciaObjekto, ... args) => {
+    return args.map(valoro => {
+      const indekso = valoro.indexOf(parametrojApartigilo2.ĉeno)
+      const tipo = valoro.slice(0, indekso);
+      const val = valoro.slice(indekso+1);
+
+      funkciaObjekto.konstantoj.push(tipojInicializiloj[tipoj[tipo]](val));
+    });
+  }],
+  /* 3        4 */ ['eligi-valoron', (funkciaObjekto, registro) => {
+    process.stdout.write(funkciaObjekto.registroj[registro]);
+    return funkciaObjekto.registroj[registro];
+  }],
+  /* 4        5 */ ['ŝargi-konstanton', (funkciaObjekto, celaRegistro, fontaRegistro) => {
+    funkciaObjekto.registroj[celaRegistro] = funkciaObjekto.konstantoj[fontaRegistro];
+    return funkciaObjekto.registroj[celaRegistro];
   }]
 ];
 
@@ -30,10 +75,18 @@ const operaciajKodoAlBajtkodo = (ĉeno, npilTabelo = {}) => {
 const specifajParsajFunkcioj = {
   eligi: (ĉeno) => {
     return [ ĉeno ];
+  },
+  'difini-konstantojn': (ĉeno) => {
+    const rezulto = [];
+
+    for (let i of ĉeno.matchAll(/[(][^)]+[)]/g)) {
+      let valoro = i[0].slice(1, -1).split(/\s+/);
+      rezulto.push(tipoj.indexOf(valoro[0]) + parametrojApartigilo2.ĉeno + valoro[1]);
+    }
+
+    return rezulto;
   }
 }
-
-const parametrojApartigilo = 0x1F;
 
 // <instrukcio> <ĉeno> -> [param1, param2, param3]
 const parsadoDeLaParametrojDeKomando = (instrukcio, ĉeno) => {
@@ -47,10 +100,10 @@ const parsadoDeLaParametrojDeKomando = (instrukcio, ĉeno) => {
 };
 
 // [[0, "teksto"]]
-const plenumiOperaciojn = (programoDatumoj) => {
+const plenumiOperaciojn = (programoDatumoj, funkciaObjekto = {}) => {
   // Ni plenumas la operaciojn de la programo
   programoDatumoj.map(datumo => {
-    operaciajKodoj[datumo[0]][1].apply(null, datumo.slice(1));
+    operaciajKodoj[datumo[0]][1].apply(null, [funkciaObjekto].concat(datumo.slice(1)));
   });
 };
 

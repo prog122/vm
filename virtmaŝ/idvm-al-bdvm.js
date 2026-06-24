@@ -77,7 +77,6 @@ const kompiliDosiero = (dosiero) => {
         bufro.writeUInt8(0, indekso + tabelo[1].length + 2);
       }
 
-
       indekso += 1 + tabelo[1].length + 1;
     });
 

@@ -1,16 +1,12 @@
 const assert = require('assert');
 const { exec } = require("child_process");
+const { execSync } = require("child_process");
 const path = require('path');
 
 const kunDosieroEligon = (dosiero, funkcio, parametroj) => {
-  exec("node idvm-al-bdvm.js -e " + dosiero + parametroj, (error, stdout, stderr) => {
-    if (error) {
-      console.error(`Eraro: ${error.message}`);
-      return;
-    }
+  let eligo = execSync("node idvm-al-bdvm.js -e " + dosiero + parametroj);
 
-    funkcio(stdout);
-  });
+  funkcio(eligo.toString());
 }
 
 const asertiLaEligonDeLaBajtkodo = (dosierNomo, eligo, parametroj = "") => {
@@ -40,24 +36,14 @@ const asertiLaEligonDeLaBajtkodo = (dosierNomo, eligo, parametroj = "") => {
 };
 
 const kunLaEligoDeLaProgramo = (dosiero, funkcio, parametroj = "") => {
-  exec("node idvm-al-bdvm.js " + dosiero + parametroj, (error, stdout, stderr) => {
-    if (error) {
-      console.error(`Eraro: ${error.message}`);
-      return;
-    }
+  execSync("node idvm-al-bdvm.js " + dosiero + parametroj);
 
-    const dosieroParsita = path.parse(dosiero);
-    const bajtkodonDosiero = dosieroParsita.dir + path.sep + dosieroParsita.name + ".bdvm";
+  const dosieroParsita = path.parse(dosiero);
+  const bajtkodonDosiero = dosieroParsita.dir + path.sep + dosieroParsita.name + ".bdvm";
 
-    exec("node lanĉi.js " + bajtkodonDosiero, (error, stdout, stderr) => {
-      if (error) {
-        console.error(`Eraro: ${error.message}`);
-        return;
-      }
+  let eligo = execSync("node lanĉi.js " + bajtkodonDosiero);
 
-      funkcio(stdout);
-    });
-  });
+  funkcio(eligo.toString());
 }
 
 

@@ -1,6 +1,10 @@
 # Ŝanĝprotokolo
 Ĉiuj publikaj ŝanĝoj estos dokumentitaj en ĉi tiu dosiero.
 
+## [0.4.0]
+### Aldonita
+- Aldonitaj komandoj difini-konstantojn ŝargi-konstanton eligi-valoron
+
 ## [0.3.0]
 ### Aldonita
 - Aldonita subteno por NPIL-tabeloj
