@@ -26,7 +26,7 @@ if (dosieroj.length == 0) {
   process.stdout.write("Uzado: node idvm-al-bdvm.js <vojo al dosiero>")
   process.stdout.write("\npor kompili dosieron kaj konservi ĝin kun nova finaĵo bdvm")
   process.stdout.write("\n\nnode idvm-al-bdvm.js -e <vojo al dosiero>\npor eligi bajtkodon")
-  process.stdout.write("\n\nnode idvm-al-bdvm.js -npil <vojo al NPIL dosiero> <vojo al dosiero>\npor eligi tradukita instrukcioj (NPIL)")
+  process.stdout.write("\n\nnode idvm-al-bdvm.js -npil <vojo al NPIL dosiero> <vojo al dosiero>\npor uzi tradukita instrukcioj (NPIL)")
   process.exit();
 }
 

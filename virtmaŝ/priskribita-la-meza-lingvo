@@ -12,3 +12,6 @@ Realigitaj komandoj:
   --------------------------------------------------
 "ŝargi-konstanton" - kopias la valoron de konstanto en registron, parametroj <registro> <indekso de konstanto>
 "eligi-valoron" - eligas la valoron el registro al la norma eligo, akceptas parametron — <registro>
+"difini-fermaĵo" - komenco de funkciodifino, kiu akceptas parametron registro – registro en kiu konserviĝas la objekto de la funkcio. La kodo inter la vokoj difini-fermaĵo kaj fini-difinon-de-fermaĵo fariĝas la kodo de la funkcio
+"fini-difinon-de-fermaĵo" - fino de funkciodifino, kiu ne akceptas parametrojn
+"voki" - voki funkcion el certa registro, akceptas parametron — <registro>

@@ -31,8 +31,15 @@ const tipojInicializiloj = {
   }
 };
 
+const kreiVokokuntekston = () => {
+  return {
+    registroj: [],
+    konstantoj: []
+  };
+};
+
 const operaciajKodoj = [
-  /* indekso, bajtkodo
+  /* indekso, bajtkodo */
   /* 0        1 */ ["eligi", (funkciaObjekto, teksto) => {
     process.stdout.write(teksto.toString());
   }],
@@ -55,6 +62,31 @@ const operaciajKodoj = [
   /* 4        5 */ ['ŝargi-konstanton', (funkciaObjekto, celaRegistro, fontaRegistro) => {
     funkciaObjekto.registroj[celaRegistro] = funkciaObjekto.konstantoj[fontaRegistro];
     return funkciaObjekto.registroj[celaRegistro];
+  }],
+  /* indekso, bajtkodo */
+  /* 5        6 */ ['difini-fermaĵo', (funkciaObjekto, celaRegistro) => {
+    if (funkciaObjekto.enLaDifinoDeFermaĵo) {
+      return {};
+    }
+
+    funkciaObjekto.funkciaNombrilo = celaRegistro;
+
+    funkciaObjekto.enLaDifinoDeFermaĵo = (funkciaObjekto.enLaDifinoDeFermaĵo || 0) + 1;
+    return {
+      memorigiLaKomenconDeFermaĵo: true
+    };
+  }],
+  /* 6        7 */ ['fini-difinon-de-fermaĵo', (funkciaObjekto, celaRegistro, fontaRegistro) => {
+    funkciaObjekto.enLaDifinoDeFermaĵo -= 1;
+
+    if (funkciaObjekto.enLaDifinoDeFermaĵo == 0) {
+      return {
+        memorigiLaFinonDeFermaĵo: true
+      }
+    }
+  }],
+  /* 7        8 */ ['voki', (funkciaObjekto, celaRegistro, fontaRegistro) => {
+    plenumiOperaciojn(funkciaObjekto.registroj[celaRegistro].komandoj, kreiVokokuntekston(), true);
   }]
 ];
 
@@ -99,26 +131,48 @@ const parsadoDeLaParametrojDeKomando = (instrukcio, ĉeno) => {
   }
 };
 
+const plenumuOperacio = (operacio, datumo, indekso, funkciaObjekto, programoDatumoj) => {
+  if (!funkciaObjekto.enLaDifinoDeFermaĵo || operacio[0] == 'fini-difinon-de-fermaĵo') {
+    let revenaValoro = operacio[1].apply(null, [funkciaObjekto].concat(datumo.slice(1)));
+    if (revenaValoro && revenaValoro.memorigiLaKomenconDeFermaĵo) {
+      funkciaObjekto.komencaIndeksoDeFermaĵo = indekso;
+    }
+
+    if (revenaValoro && revenaValoro.memorigiLaFinonDeFermaĵo) {
+      funkciaObjekto.registroj[funkciaObjekto.funkciaNombrilo] = {
+        komandoj: programoDatumoj.slice(funkciaObjekto.komencaIndeksoDeFermaĵo + 1, indekso)
+      };
+    }
+    return;
+  }
+};
+
 // [[0, "teksto"]]
-const plenumiOperaciojn = (programoDatumoj, funkciaObjekto = {}) => {
+const plenumiOperaciojn = (programoDatumoj, funkciaObjekto = {}, debug = false) => {
   // Ni plenumas la operaciojn de la programo
-  programoDatumoj.map(datumo => {
-    operaciajKodoj[datumo[0]][1].apply(null, [funkciaObjekto].concat(datumo.slice(1)));
+  programoDatumoj.map((datumo, indekso) => {
+    plenumuOperacio(operaciajKodoj[datumo[0]], datumo, indekso, funkciaObjekto, programoDatumoj);
   });
 };
 
 // [["eligi", "teksto"]]
-const plenumiOperaciojn2 = (programoDatumoj, npilTabelo = {}) => {
+const plenumiOperaciojn2 = (programoDatumoj, npilTabelo = {}, funkciaObjekto = {}) => {
   const interŝanĝita = Object.fromEntries(
     Object.entries(npilTabelo).map(([ŝlosilo, valoro]) => [valoro, ŝlosilo])
   );
   // Ni plenumas la operaciojn de la programo
-  programoDatumoj.map(datumo => {
+  programoDatumoj = programoDatumoj.map((datumo, indekso) => {
     if (!interŝanĝita[datumo[0]]) {
-      operaciajKodoj[operaciajKodoAlBajtkodo(datumo[0]) - 1][1].apply(null, datumo.slice(1));
+      datumo[0] = operaciajKodoAlBajtkodo(datumo[0]) - 1;
     } else {
-      operaciajKodoj[operaciajKodoAlBajtkodo(interŝanĝita[datumo[0]]) - 1][1].apply(null, datumo.slice(1));
+      datumo[0] = operaciajKodoAlBajtkodo(interŝanĝita[datumo[0]]) - 1;
     }
+
+    return datumo;
+  });
+
+  programoDatumoj = programoDatumoj.map((datumo, indekso) => {
+    plenumuOperacio(operaciajKodoj[datumo[0]], datumo, indekso, funkciaObjekto, programoDatumoj);
   });
 };
 
@@ -141,4 +195,4 @@ const legiLaTabelonNPIL = (dosiero) => {
   return tabelo;
 };
 
-export { operaciajKodoj, operaciajKodoAlBajtkodo, parsadoDeLaParametrojDeKomando, parametrojApartigilo, plenumiOperaciojn, plenumiOperaciojn2, legiLaTabelonNPIL };
+export { operaciajKodoj, operaciajKodoAlBajtkodo, parsadoDeLaParametrojDeKomando, parametrojApartigilo, plenumiOperaciojn, plenumiOperaciojn2, legiLaTabelonNPIL, kreiVokokuntekston };

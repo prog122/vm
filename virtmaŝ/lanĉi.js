@@ -60,8 +60,5 @@ fs.readFile(dosieroj[0], (eraro, datumoj) => {
     }
   });
 
-  kerno.plenumiOperaciojn(programoDatumoj, {
-    registroj: [],
-    konstantoj: []
-  });
+  kerno.plenumiOperaciojn(programoDatumoj, kerno.kreiVokokuntekston());
 });
