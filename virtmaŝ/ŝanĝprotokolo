@@ -1,6 +1,10 @@
 # Ŝanĝprotokolo
 Ĉiuj publikaj ŝanĝoj estos dokumentitaj en ĉi tiu dosiero.
 
+## [0.5.2]
+### Riparita
+- Korektita teksto en testoj
+
 ## [0.5.1]
 ### Aldonita
 - Aldonita estas la komando montri-valoron al la tabelo npil

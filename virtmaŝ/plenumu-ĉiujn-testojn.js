@@ -6,5 +6,5 @@ require('./testoj/5.js'); // eligi
 require('./testoj/6.js'); // revena
 require('./testoj/7.js'); // eligi + npil
 require('./testoj/8.js'); // difini-konstanton + ŝargi-konstanton + eligi-valoron
-require('./testoj/9.js'); // difini-konstanton + ŝargi-konstanton + eligi-valoron
+require('./testoj/9.js'); // difini-fermaĵo + fini-difinon-de-fermaĵo + voki
 require('./testoj/10.js'); // eligi-valoron + npil
