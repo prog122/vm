@@ -6,5 +6,6 @@ node idvm-al-bdvm.js -npil alia-Esperanto.npil <vojo al dosiero>
 
 Realigitaj komandoj:
 "montri" - eligi tekston kaj redoni ĝian valoron.  La tuta teksto post la komando ĝis la fino de la linio estas elmontrata, krom la spacoj kiuj ĝin ĉirkaŭas.
+"montri-valoron" - elmontras la valoron el registro al la norma eligo, akceptas parametron — <registro>
 
-Ĉiuj aliaj komandoj troviĝas en la dosiero priskribita-la-meza-lingvo, bonvolu ignori la komandon eligi el la dosiero
+Ĉiuj aliaj komandoj troviĝas en la dosiero priskribita-la-meza-lingvo, bonvolu ignori la komandojn eligi kaj eligi-valoron el la dosiero.
