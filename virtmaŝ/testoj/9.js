@@ -1,4 +1,4 @@
-// Ni plenumas la komandojn difini konstantojn, ŝargi konstanton, eligi valoron
+// Ni plenumas la komandojn difini-fermaĵo, fini-difinon-de-fermaĵo, voki
 const helpanto = require('./helpanto.cjs');
 process.stdout.write("Ruligante teston 9\n");
 helpanto.asertiLaEligonDeLaBajtkodo("testoj/9/9.idvm", Buffer.concat([
