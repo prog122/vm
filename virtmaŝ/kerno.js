@@ -148,15 +148,25 @@ const plenumuOperacio = (operacio, datumo, indekso, funkciaObjekto, programoDatu
 };
 
 // [[0, "teksto"]]
-const plenumiOperaciojn = (programoDatumoj, funkciaObjekto = {}, debug = false) => {
+const plenumiOperaciojn = (programoDatumoj, funkciaObjekto = {}) => {
   // Ni plenumas la operaciojn de la programo
   programoDatumoj.map((datumo, indekso) => {
     plenumuOperacio(operaciajKodoj[datumo[0]], datumo, indekso, funkciaObjekto, programoDatumoj);
   });
 };
 
+// @g
+// Kontrolo ĉu objekto estas malplena en JavaScript
+function estasMalplena(objekto) {
+  return Object.keys(objekto).length === 0;
+}
+
 // [["eligi", "teksto"]]
 const plenumiOperaciojn2 = (programoDatumoj, npilTabelo = {}, funkciaObjekto = {}) => {
+  if (estasMalplena(funkciaObjekto)) {
+    funkciaObjekto = kreiVokokuntekston();
+  }
+
   const interŝanĝita = Object.fromEntries(
     Object.entries(npilTabelo).map(([ŝlosilo, valoro]) => [valoro, ŝlosilo])
   );

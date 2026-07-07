@@ -1,6 +1,10 @@
 # Ŝanĝprotokolo
 Ĉiuj publikaj ŝanĝoj estos dokumentitaj en ĉi tiu dosiero.
 
+## [0.5.4]
+### Riparita
+- Korektita konduto de kerno.plenumiOperaciojn2
+
 ## [0.5.3]
 ### Riparita
 - Korektita la komento de la 9-a testo
